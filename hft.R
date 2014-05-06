@@ -72,9 +72,9 @@ ChordDiagram = setRefClass('ChordDiagram', contains = 'rCharts', methods = list(
         return chart;
       };
       
-      $(document).ready(function(){
+      //$(document).ready(function(){
         draw{{chartId}}()
-    });
+    //});
     
     </script>'
   },

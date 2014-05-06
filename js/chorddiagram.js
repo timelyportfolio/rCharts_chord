@@ -3,12 +3,13 @@ d3.chordDiagram = function module() {
       height = 720,
       id = null,
       outerRadius = Math.min(width, height) / 2 - 10,
-      innerRadius = outerRadius - 24;
+      innerRadius = outerRadius - 24,
+      titleText = function(d){
+        return ""
+      };
 
 
   function chord_diagram(_selection) {
-    var formatPercent = d3.format(".1%");
-
     var arc = d3.svg.arc()
         .innerRadius(innerRadius)
         .outerRadius(outerRadius);
@@ -43,11 +44,6 @@ d3.chordDiagram = function module() {
             .attr("class", "group")
             .on("mouseover", mouseover);
 
-        // Add a mouseover title.
-        // not meaningful for wikipedia votes
-        // group.append("title").text(function(d, i) {
-        //   return data[i].name + ": " + formatPercent(d.value) + " of origins";
-        // });
 
         // Add the group arc.
         var groupPath = group.append("path")
@@ -78,24 +74,9 @@ d3.chordDiagram = function module() {
 
         // Add an elaborate mouseover title for each chord.
         // must be customized on individual basis
-        chord.append("title").text(function(d){
-          return formatPercent(d.source.value) +
-              " of voters who voted for " + 
-              data[d.source.index].name + "\nalso voted for " +
-              data[d.target.index].name + 
-              "\n" + formatPercent(d.target.value) +
-              " of voters who voted for " +
-              data[d.target.index].name + "\nalso voted for " +
-              data[d.source.index].name;
-        })
-        // chord.append("title").text(function(d) {
-        //   return data[d.source.index].name
-        //       + " → " + data[d.target.index].name
-        //       + ": " + formatPercent(d.source.value)
-        //       + "\n" + data[d.target.index].name
-        //       + " → " + data[d.source.index].name
-        //       + ": " + formatPercent(d.target.value);
-        // });
+        chord.append("title").text(
+         titleText;
+        )
 
         function mouseover(d, i) {
           chord.classed("fade", function(p) {
