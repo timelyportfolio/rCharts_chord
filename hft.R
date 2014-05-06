@@ -103,7 +103,8 @@ ch$params$height <- 700
 ch$params$width <- 700
 ch$params$id <- "chorddiagram"
 ch$params$removeSmall = T
-ch$params$titleText = "#!function(d){
-  return d.source.name + ' takes ' + d3.format('$')(d.source.value)
+ch$params$titleText = "#!
+function(d){
+    return d.source.name + ' takes ' + d3.format(',.2f')(d.d.source.value) + '/per trade from ' + d.target.name
 }!#"
 ch
