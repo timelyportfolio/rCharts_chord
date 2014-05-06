@@ -5,4 +5,4 @@ chord_diagram:
     jshead: 
       - "http://timelyportfolio.github.io/rCharts_chord/js/d3.v3.min.js"
       - "http://timelyportfolio.github.io/rCharts_chord/js/chorddiagram.js"
-    css: "http://timelyportfolio.github.io/rCharts_chord/css/style.css
+    css: "http://timelyportfolio.github.io/rCharts_chord/css/style.css"

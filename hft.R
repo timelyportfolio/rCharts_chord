@@ -53,6 +53,7 @@ tradeFlow.melt <- melt(
 
 ### rCharts custom chord diagram courtesy of Ben Hunter
 ### http://mostlyconjecture.com/2014/05/03/chord-diagrams-with-rcharts/
+### all attribution should go there
 
 ChordDiagram = setRefClass('ChordDiagram', contains = 'rCharts', methods = list(
   initialize = function(){
