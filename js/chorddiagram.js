@@ -101,8 +101,8 @@ d3.chordDiagram = function module() {
     return chord_diagram;
   }
   chord_diagram.removeSmall = function(_x) {
-    if(!arguments.length) return .removeSmall;
-    .removeSmall = _x
+    if(!arguments.length) return removeSmall;
+    removeSmall = _x
     return chord_diagram;
   }  
   chord_diagram.width = function(_x) {
