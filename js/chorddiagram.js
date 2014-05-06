@@ -78,7 +78,7 @@ d3.chordDiagram = function module() {
         // Add an elaborate mouseover title for each chord.
         // must be customized on individual basis
         chord.append("title").text(
-         titleText()
+         function(d){return titleText(d)};
         )
 
         function mouseover(d, i) {
