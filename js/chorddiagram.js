@@ -6,7 +6,8 @@ d3.chordDiagram = function module() {
       innerRadius = outerRadius - 24,
       titleText = function(d){
         return ""
-      };
+      },
+      removeSmall = false;
 
 
   function chord_diagram(_selection) {
@@ -61,8 +62,10 @@ d3.chordDiagram = function module() {
             .text(function(d, i) { return data[i].name; });
 
         // Remove the labels that don't fit. :(
-        groupText.filter(function(d, i) { return groupPath[0][i].getTotalLength() / 2 - 25 < this.getComputedTextLength(); })
+        if(removeSmall){
+          groupText.filter(function(d, i) { return groupPath[0][i].getTotalLength() / 2 - 25 < this.getComputedTextLength(); })
             .remove();
+        };
 
         // Add the chords.
         var chord = svg.selectAll(".chord")
