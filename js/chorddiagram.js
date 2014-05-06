@@ -95,6 +95,16 @@ d3.chordDiagram = function module() {
     id = _x
     return chord_diagram;
   }
+  chord_diagram.titleText = function(_x) {
+    if(!arguments.length) return titleText;
+    titleText = _x
+    return chord_diagram;
+  }
+  chord_diagram.removeSmall = function(_x) {
+    if(!arguments.length) return .removeSmall;
+    .removeSmall = _x
+    return chord_diagram;
+  }  
   chord_diagram.width = function(_x) {
     if(!arguments.length) return width;
     width = _x;
