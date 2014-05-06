@@ -1,0 +1,100 @@
+<!doctype HTML>
+<meta charset = 'utf-8'>
+<html>
+  <head>
+    <link rel='stylesheet' href='http://timelyportfolio.github.io/rCharts_chord/css/style.css'>
+    
+    <script src='http://timelyportfolio.github.io/rCharts_chord/js/d3.v3.min.js' type='text/javascript'></script>
+    <script src='http://timelyportfolio.github.io/rCharts_chord/js/chorddiagram.js' type='text/javascript'></script>
+    
+    <style>
+    .rChart {
+      display: block;
+      margin-left: auto; 
+      margin-right: auto;
+      width: 700px;
+      height: 700px;
+    }  
+    </style>
+    
+  </head>
+  <body >
+    
+    <div id = 'chart2eb02eee7622' class = 'rChart rCharts_chord'></div>    
+    
+    <script type="text/javascript">
+    function drawchart2eb02eee7622(){
+      var params = {
+ "dom": "chart2eb02eee7622",
+"width":    700,
+"height":    700,
+"data": [
+ {
+ "name": "HFTa",
+"color": "#F7FBFF" 
+},
+{
+ "name": "HFTm",
+"color": "#DEEBF7" 
+},
+{
+ "name": "HFTp",
+"color": "#C6DBEF" 
+},
+{
+ "name": "Non-HFTMM",
+"color": "#9ECAE1" 
+},
+{
+ "name": "Fundamental",
+"color": "#6BAED6" 
+},
+{
+ "name": "Opportunistic",
+"color": "#4292C6" 
+},
+{
+ "name": "SmallTrader",
+"color": "#2171B5" 
+},
+{
+ "name": "Total",
+"color": "#08519C" 
+} 
+],
+"matrix": [ [      0,   2.02,   1.93,   2.64,   1.92,   2.49,   3.49,   2.04 ],
+[      0,      0,   0.94,   1.95,   0.18,   1.92,   4.42,    0.6 ],
+[      0,      0,      0,   0.75,      0,   1.79,   5.05,   0.08 ],
+[      0,      0,      0,      0,      0,   1.11,   4.25,      0 ],
+[      0,      0,   0.62,   1.59,      0,   1.45,   2.87,   0.19 ],
+[      0,      0,      0,      0,      0,      0,   2.05,      0 ],
+[      0,      0,      0,      0,      0,      0,      0,      0 ] ],
+"id": "chart2eb02eee7622",
+"removeSmall": true,
+"titleText": "#!\nfunction(d){\n    return d.source.name + ' takes ' + d3.format(',.2f')(d.d.source.value) + '/per trade from ' + d.target.name\n}!#" 
+}
+      var chart = d3.chordDiagram()
+  .width(   700)
+  .height(   700)
+  .id("chart2eb02eee7622")
+  .removeSmall(true)
+  .titleText(
+function(d){
+    return d.source.name + ' takes ' + d3.format(',.2f')(d.d.source.value) + '/per trade from ' + d.target.name
+})
+      
+      d3.select("#" + params.id) 
+        .datum({"data":[{"name":"HFTa","color":"#F7FBFF"},{"name":"HFTm","color":"#DEEBF7"},{"name":"HFTp","color":"#C6DBEF"},{"name":"Non-HFTMM","color":"#9ECAE1"},{"name":"Fundamental","color":"#6BAED6"},{"name":"Opportunistic","color":"#4292C6"},{"name":"SmallTrader","color":"#2171B5"},{"name":"Total","color":"#08519C"}], "matrix":[[0,2.02,1.93,2.64,1.92,2.49,3.49,2.04],[0,0,0.94,1.95,0.18,1.92,4.42,0.6],[0,0,0,0.75,0,1.79,5.05,0.08],[0,0,0,0,0,1.11,4.25,0],[0,0,0.62,1.59,0,1.45,2.87,0.19],[0,0,0,0,0,0,2.05,0],[0,0,0,0,0,0,0,0]] })
+        .call(chart)
+        return chart;
+      };
+      
+      //$(document).ready(function(){
+        drawchart2eb02eee7622()
+    //});
+    
+    </script>
+    
+    <script></script>    
+  </body>
+</html>
