@@ -7,7 +7,7 @@
 require(reshape2)
 
 #tradeFlow <- readClipboard()
-load.data("")
+load("hftData.RData")
 
 tradeFlow.df <- data.frame(do.call(rbind,lapply(
   strsplit( tradeFlow, " " )
@@ -33,13 +33,6 @@ colnames(tradeFlow.df) <- c("source", tradeFlow.df[,1])
 #make numeric
 tradeFlow.df[,-1] <- lapply( tradeFlow.df[,-1], as.numeric )
 
-#make negative 0 to work with network diagrams
-tradeFlow.df[-1] <- lapply(tradeFlow.df[,-1],function(x){ifelse(x<0,0,x)})
-#make negative positive to work with network diagrams
-#tradeFlow.df[,-1] <- abs(tradeFlow.df[,-1])
-
-
-
 #this step is not necessary for the chord diagram
 #for something other than chord diagram often data format will be more like this
 #melted with source, target, and value
@@ -47,8 +40,13 @@ tradeFlow.melt <- melt(
   tradeFlow.df[-nrow(tradeFlow.df),-ncol(tradeFlow.df)]
   ,id.vars = 1
   ,variable.name = "target"
-  ,value.name = "weight"
+  ,value.name = "profit"
 )
+
+#make negative 0 to work with network diagrams
+tradeFlow.df[-1] <- lapply(tradeFlow.df[,-1],function(x){ifelse(x<0,0,x)})
+#make negative positive to work with network diagrams
+#tradeFlow.df[,-1] <- abs(tradeFlow.df[,-1])
 
 
 ### rCharts custom chord diagram courtesy of Ben Hunter
@@ -108,3 +106,9 @@ function(d){
     return d.source.name + ' takes ' + d3.format(',.2f')(d.d.source.value) + '/per trade from ' + d.target.name
 }!#"
 ch
+#ch$save("hft.html",cdn=T)
+
+
+require(ggplot2)
+ggplot(data=tradeFlow.melt,aes(x=target,y=profit)) + 
+  geom_bar(stat="identity", position="dodge") + facet_wrap(~source, ncol=1) + coord_flip()
