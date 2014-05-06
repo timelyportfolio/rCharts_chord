@@ -6,32 +6,39 @@
 
 require(reshape2)
 
-#tradeFlow <- readClipboard()
+#tradeFlowDollar <- readClipboard()
 load("hftData.RData")
 
-tradeFlow.df <- data.frame(do.call(rbind,lapply(
-  strsplit( tradeFlow, " " )
-  ,function(x) {
-    x = gsub(  #eliminate $ signs from the numbers
-      x = x
-      ,pattern = "\\$"
-      ,replacement = ""
-    )
-    if (length(x) == 10){  #since space delimited combine row names that are two words
-      x[1] <- paste0(x[1],x[2])
-      x <- x[-2]
+cleanup <- function(d){
+  df <- data.frame(do.call(rbind,lapply(
+    strsplit( d, " " )
+    ,function(x) {
+      x = gsub(  #eliminate $ signs from the numbers
+        x = x
+        ,pattern = "[\\$\\,\\\r]"
+        ,replacement = ""
+      )
+      if (length(x) == 10){  #since space delimited combine row names that are two words
+        x[1] <- paste0(x[1],x[2])
+        x <- x[-2]
+      }
+      return(x)
     }
-    return(x)
-  }
-)),stringsAsFactors = F)
-#copy paste loses superscript so replace ? with lower case superscript
-tradeFlow.df[1:3,1] <- paste0("HFT",c("a","m","p"))
-#name rows
-rownames(tradeFlow.df) <- c(tradeFlow.df[,1])
-#name columns
-colnames(tradeFlow.df) <- c("source", tradeFlow.df[,1])
-#make numeric
-tradeFlow.df[,-1] <- lapply( tradeFlow.df[,-1], as.numeric )
+  )),stringsAsFactors = F)
+  #copy paste loses superscript so replace ? with lower case superscript
+  df[1:3,1] <- paste0("HFT",c("a","m","p"))
+  #name rows
+  rownames(df) <- c(df[,1])
+  #name columns
+  colnames(df) <- c("source", df[,1])
+  #make numeric
+  df[,-1] <- lapply( df[,-1], as.numeric )
+  
+  return(df)
+}
+
+tradeFlow.df <- cleanup(tradeFlow)
+tradeFlowDollar.df <- cleanup(tradeFlowDollar)
 
 #this step is not necessary for the chord diagram
 #for something other than chord diagram often data format will be more like this
