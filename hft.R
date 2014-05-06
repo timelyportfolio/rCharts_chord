@@ -57,7 +57,7 @@ tradeFlow.melt <- melt(
 ChordDiagram = setRefClass('ChordDiagram', contains = 'rCharts', methods = list(
   initialize = function(){
     callSuper()
-    LIB <<- get_lib("http://mostlyconjecture.com/rcharts_plugins/chord_diagram")
+    LIB <<- get_lib("http://timelyportfolio.github.io/rCharts_chord")
     lib <<- "chord_diagram"
     templates$script <<- '
     <script type="text/javascript">
