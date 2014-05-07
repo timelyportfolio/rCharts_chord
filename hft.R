@@ -9,16 +9,16 @@ require(reshape2)
 #tradeFlowDollar <- readClipboard()
 load("hftData.RData")
 
-cleanup <- function(d){
+cleanup <- function(d, expectCol = 10){
   df <- data.frame(do.call(rbind,lapply(
     strsplit( d, " " )
     ,function(x) {
       x = gsub(  #eliminate $ signs from the numbers
         x = x
-        ,pattern = "[\\$\\,\\\r]"
+        ,pattern = "[\\$\\,\r]"
         ,replacement = ""
       )
-      if (length(x) == 10){  #since space delimited combine row names that are two words
+      if (length(x) == expectCol){  #since space delimited combine row names that are two words
         x[1] <- paste0(x[1],x[2])
         x <- x[-2]
       }
@@ -38,7 +38,7 @@ cleanup <- function(d){
 }
 
 tradeFlow.df <- cleanup(tradeFlow)
-tradeFlowDollar.df <- cleanup(tradeFlowDollar)
+tradeFlowDollar.df <- cleanup(tradeFlowDollar,expectCol=11)[,-(9:11)]
 
 #this step is not necessary for the chord diagram
 #for something other than chord diagram often data format will be more like this
@@ -50,8 +50,16 @@ tradeFlow.melt <- melt(
   ,value.name = "profit"
 )
 
+tradeFlowDollar.melt <- melt(
+  tradeFlowDollar.df
+  ,id.vars = 1
+  ,variable.name = "target"
+  ,value.name = "profit"
+)
+
 #make negative 0 to work with network diagrams
 tradeFlow.df[-1] <- lapply(tradeFlow.df[,-1],function(x){ifelse(x<0,0,x)})
+tradeFlowDollar.df[-1] <- lapply(tradeFlowDollar.df[,-1],function(x){ifelse(x<0,0,x)})
 #make negative positive to work with network diagrams
 #tradeFlow.df[,-1] <- abs(tradeFlow.df[,-1])
 
@@ -116,6 +124,31 @@ ch
 #ch$save("hft.html",cdn=T)
 
 
+ch2 <- ChordDiagram$new()
+ch2$params$data = lapply(
+  1:nrow(tradeFlowDollar.df)
+  ,function(x){
+    list(
+      name = tradeFlowDollar.df[,1][x]
+      ,color = RColorBrewer::brewer.pal(9, name = "Blues")[x]
+    )
+  }
+)
+ch2$params$matrix <- unname(as.matrix(tradeFlowDollar.df[-nrow(tradeFlow.df),-1]))
+ch2$params$height <- 700
+ch2$params$width <- 700
+ch2$params$id <- "chorddiagram"
+ch2$params$removeSmall = T
+ch2$params$titleText = "#!
+function(d){
+    return d.source.name + ' takes $' + d3.format(',.f')(d.d.source.value) + ' from '  +d.target.name
+}!#"
+ch2
+#ch$save("hft.html",cdn=T)
+
+
 require(ggplot2)
 ggplot(data=tradeFlow.melt,aes(x=target,y=profit)) + 
+  geom_bar(stat="identity", position="dodge") + facet_wrap(~source, ncol=1) + coord_flip()
+ggplot(data=tradeFlowDollar.melt,aes(x=target,y=profit)) + 
   geom_bar(stat="identity", position="dodge") + facet_wrap(~source, ncol=1) + coord_flip()
