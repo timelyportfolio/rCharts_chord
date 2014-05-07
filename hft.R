@@ -3,7 +3,7 @@
 ## http://mostlyconjecture.com/2014/05/03/chord-diagrams-with-rcharts/
 
 
-
+require(rCharts)
 require(reshape2)
 
 #tradeFlowDollar <- readClipboard()
@@ -144,7 +144,7 @@ function(d){
     return d.source.name + ' takes $' + d3.format(',.f')(d.d.source.value) + ' from '  +d.target.name
 }!#"
 ch2
-#ch$save("hft.html",cdn=T)
+ch2$save("hft_dollar.html",cdn=T)
 
 
 require(ggplot2)
