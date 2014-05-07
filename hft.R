@@ -2,6 +2,11 @@
 ## extend Ben Hunter's implementation of chord diagram in rCharts
 ## http://mostlyconjecture.com/2014/05/03/chord-diagrams-with-rcharts/
 
+## hft data from
+## Baron, Matthew and Brogaard, Jonathan and Kirilenko, Andrei A.,
+## Risk and Return in High Frequency Trading
+## (May 5, 2014)
+## Available at SSRN: http://ssrn.com/abstract=2433118
 
 require(rCharts)
 require(reshape2)
